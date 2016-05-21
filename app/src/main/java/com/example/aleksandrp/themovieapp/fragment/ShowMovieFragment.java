@@ -64,6 +64,7 @@ public class ShowMovieFragment extends Fragment {
                 mMovie.getBackdrop_path();
         Picasso.with(mContext)
                 .load(mPathIcon)
+                .placeholder(R.drawable.doownload)
                 .error(R.mipmap.ic_launcher)
                 .into(mIconMovie);
 

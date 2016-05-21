@@ -5,7 +5,7 @@ package com.example.aleksandrp.themovieapp.params;
  */
 public interface StaticParams {
 
-    String MOVE_LIST_FRAGMENT = "MoveListFragment",
-            SHOW_MOVE_FRAGMENT = "ShowMoveFragment";
+    String MOVIE_LIST_FRAGMENT = "MovieListFragment",
+            SHOW_MOVIE_FRAGMENT = "ShowMovieFragment";
 
 }

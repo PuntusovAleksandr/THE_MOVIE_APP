@@ -14,25 +14,24 @@ import android.widget.TextView;
 
 import com.example.aleksandrp.themovieapp.R;
 import com.example.aleksandrp.themovieapp.StartActivity;
-import com.example.aleksandrp.themovieapp.entity.Move;
-import com.squareup.picasso.Picasso;
+import com.example.aleksandrp.themovieapp.entity.ItemMovie;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ShowMoveFragment extends Fragment {
+public class ShowMovieFragment extends Fragment {
 
-    private Move mMove;
+    private ItemMovie mMovie;
     private Context mContext;
     private StartActivity mStartActivity;
 
-    public ShowMoveFragment() {
+    public ShowMovieFragment() {
     }
 
-    public ShowMoveFragment(StartActivity mStartActivity, Move mMove) {
+    public ShowMovieFragment(StartActivity mStartActivity, ItemMovie mMovie) {
         // Required empty public constructor
         this.mStartActivity = mStartActivity;
-        this.mMove = mMove;
+        this.mMovie = mMovie;
     }
 
 
@@ -40,7 +39,7 @@ public class ShowMoveFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View mView = inflater.inflate(R.layout.fragment_show_move, container, false);
+        View mView = inflater.inflate(R.layout.fragment_show_movie, container, false);
         mContext = getActivity();
         initUi(mView);
 
@@ -48,7 +47,7 @@ public class ShowMoveFragment extends Fragment {
     }
 
     private void initUi(View mView) {
-        ImageView mIconMove = (ImageView) mView.findViewById(R.id.iv_move_details);
+        ImageView mIconMovie = (ImageView) mView.findViewById(R.id.iv_movie_details);
         TextView mTitle = (TextView) mView.findViewById(R.id.tv_title),
                 mYear = (TextView) mView.findViewById(R.id.tv_year),
                 mDuration = (TextView) mView.findViewById(R.id.tv_duration),
@@ -59,17 +58,17 @@ public class ShowMoveFragment extends Fragment {
 
         ListView mListPlaers = (ListView) mView.findViewById(R.id.lv_players);
 
-        Picasso.with(mContext)
-                .load(mMove.getPathUrl())
-                .placeholder(R.mipmap.ic_launcher)
-                .error(R.mipmap.ic_launcher)
-                .into(mIconMove);
-        mTitle.setText(mMove.getTitle());
-        String mI = mMove.getIdMove() +"";
-        mYear.setText(mI + mI); // TODO: 19.05.2016
-        mDuration.setText(mI); // TODO: 19.05.2016
-        mRating.setText(mI); // TODO: 19.05.2016
-        mDescription.setText(mMove.getDescription());
+//        Picasso.with(mContext)
+//                .load(mMovie.getPathUrl())
+//                .placeholder(R.mipmap.ic_launcher)
+//                .error(R.mipmap.ic_launcher)
+//                .into(mIconMovie);
+//        mTitle.setText(mMovie.getTitle());
+//        String mI = mMovie.getIdMovie() +"";
+//        mYear.setText(mI + mI); // TODO: 19.05.2016
+//        mDuration.setText(mI); // TODO: 19.05.2016
+//        mRating.setText(mI); // TODO: 19.05.2016
+//        mDescription.setText(mMovie.getDescription());
 
     }
 

@@ -1,6 +1,6 @@
-package com.example.aleksandrp.themovieapp.retrofit;
+package com.example.aleksandrp.themovieapp.api;
 
-import com.example.aleksandrp.themovieapp.entity.Move;
+import com.example.aleksandrp.themovieapp.entity.Movie;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ public interface MovieDbService {
 //    http://api.themoviedb.org/3/movie/popular?api_key=300edfebf6c620fdf7166e06f2b0af8a
 
     @GET("movie/{filter}")
-    Call<List<Move>> getListFilter(
+    Call<List<Movie>> getListFilter(
             @Path("filter") String filter,
             @Query("api_key") String api_key);
 

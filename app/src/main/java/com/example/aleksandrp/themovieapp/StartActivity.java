@@ -5,22 +5,20 @@ import android.app.FragmentManager;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.example.aleksandrp.themovieapp.adapter.ListMoveAdapter;
-import com.example.aleksandrp.themovieapp.entity.Move;
-import com.example.aleksandrp.themovieapp.fragment.MoveListFragment;
-import com.example.aleksandrp.themovieapp.fragment.ShowMoveFragment;
+import com.example.aleksandrp.themovieapp.adapter.ListMovieAdapter;
+import com.example.aleksandrp.themovieapp.entity.ItemMovie;
+import com.example.aleksandrp.themovieapp.fragment.MovieListFragment;
+import com.example.aleksandrp.themovieapp.fragment.ShowMovieFragment;
 import com.example.aleksandrp.themovieapp.params.StaticParams;
 import com.example.aleksandrp.themovieapp.settings.StaticClass;
 
 public class StartActivity extends AppCompatActivity implements
         StaticParams,
-        ListMoveAdapter.ClickSelectMove{
+        ListMovieAdapter.ClickSelectMovie {
 
     private FragmentManager mFragmentManager;
 
@@ -37,7 +35,7 @@ public class StartActivity extends AppCompatActivity implements
         mFragmentManager = getFragmentManager();
         mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
 
-        StaticClass.setFilter(getString(R.string.popular));     // set param filter moves
+        StaticClass.setFilter(getString(R.string.popular));     // set param filter moives
         startListFragment();
     }
 
@@ -45,28 +43,28 @@ public class StartActivity extends AppCompatActivity implements
      * set start fragment
      */
     public void startListFragment() {
-        MoveListFragment mFragment =
-                (MoveListFragment) getFragmentManager().findFragmentByTag(MOVE_LIST_FRAGMENT);
+        MovieListFragment mFragment =
+                (MovieListFragment) getFragmentManager().findFragmentByTag(MOVIE_LIST_FRAGMENT);
 
         if (mFragment == null) {
-            mFragment = new MoveListFragment(StartActivity.this);
+            mFragment = new MovieListFragment(StartActivity.this);
         }
-        setFragment(mFragment, MOVE_LIST_FRAGMENT);
+        setFragment(mFragment, MOVIE_LIST_FRAGMENT);
     }
 
 
     /**
-     * set move fragment
-     * @param mMove - path to icon
+     * set movie fragment
+     * @param mMovie - path to icon
      */
-    public void startShowMoveFragment(Move mMove) {
-        ShowMoveFragment mFragment =
-                (ShowMoveFragment) getFragmentManager().findFragmentByTag(SHOW_MOVE_FRAGMENT);
+    public void startShowMovieFragment(ItemMovie mMovie) {
+        ShowMovieFragment mFragment =
+                (ShowMovieFragment) getFragmentManager().findFragmentByTag(SHOW_MOVIE_FRAGMENT);
 
         if (mFragment == null) {
-            mFragment = new ShowMoveFragment(StartActivity.this, mMove);
+            mFragment = new ShowMovieFragment(StartActivity.this, mMovie);
         }
-        setFragment(mFragment, SHOW_MOVE_FRAGMENT);
+        setFragment(mFragment, SHOW_MOVIE_FRAGMENT);
     }
 
 
@@ -78,8 +76,8 @@ public class StartActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void onSelectMove(Move mMove) {
-        startShowMoveFragment(mMove);
+    public void onSelectMovie(ItemMovie mMovie) {
+        startShowMovieFragment(mMovie);
     }
     @Override
     public void onBackPressed() {
@@ -87,8 +85,8 @@ public class StartActivity extends AppCompatActivity implements
     }
 
     private void backPress() {
-        ShowMoveFragment mFragment =
-                (ShowMoveFragment) getFragmentManager().findFragmentByTag(SHOW_MOVE_FRAGMENT);
+        ShowMovieFragment mFragment =
+                (ShowMovieFragment) getFragmentManager().findFragmentByTag(SHOW_MOVIE_FRAGMENT);
 
         if (mFragment != null) {
             startListFragment();

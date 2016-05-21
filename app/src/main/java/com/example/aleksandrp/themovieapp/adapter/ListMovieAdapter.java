@@ -1,7 +1,6 @@
 package com.example.aleksandrp.themovieapp.adapter;
 
 import android.content.Context;
-import android.os.Handler;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.aleksandrp.themovieapp.R;
-import com.example.aleksandrp.themovieapp.entity.Move;
+import com.example.aleksandrp.themovieapp.entity.ItemMovie;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -18,22 +17,22 @@ import java.util.List;
 /**
  * Created by AleksandrP on 18.05.2016.
  */
-public class ListMoveAdapter extends RecyclerView.Adapter<ListMoveAdapter.ItemViewHolder> {
+public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.ItemViewHolder> {
 
-    private List<Move> mListPath;
+    private List<ItemMovie> mListPath;
     private Context mContext;
 
-    private ClickSelectMove mClickListener;
+    private ClickSelectMovie mClickListener;
 
-    public ListMoveAdapter(List<Move> mListPath, Context mContext) {
+    public ListMovieAdapter(List<ItemMovie> mListPath, Context mContext) {
         this.mListPath = mListPath;
         this.mContext = mContext;
 
-        if (mContext instanceof ClickSelectMove) {
-            mClickListener = (ClickSelectMove) mContext;
+        if (mContext instanceof ClickSelectMovie) {
+            mClickListener = (ClickSelectMovie) mContext;
         } else {
             throw new RuntimeException(mContext.toString()
-                    + " must implement ClickSelectMove");
+                    + " must implement ClickSelectMovie");
         }
     }
 
@@ -46,7 +45,7 @@ public class ListMoveAdapter extends RecyclerView.Adapter<ListMoveAdapter.ItemVi
         public ItemViewHolder(View itemView) {
             super(itemView);
             mCardView = (CardView) itemView.findViewById(R.id.cv);
-            mImageView = (ImageView) itemView.findViewById(R.id.iv_move);
+            mImageView = (ImageView) itemView.findViewById(R.id.iv_movie);
 
         }
 
@@ -54,23 +53,14 @@ public class ListMoveAdapter extends RecyclerView.Adapter<ListMoveAdapter.ItemVi
 
     @Override
     public void onBindViewHolder(final ItemViewHolder holder, int position) {
-        final Move mMove = mListPath.get(position);
+        final ItemMovie mMovie = mListPath.get(position);
 
-//        Handler mHandler = new Handler();
-//        mHandler.post(new Runnable() {
-//                          @Override
-//                          public void run() {
-//                              Picasso.with(mContext)
-//                                      .load(path)
-//                                      .placeholder(R.mipmap.ic_launcher)
-//                                      .error(R.mipmap.ic_launcher)
-//                                      .into(holder.mImageView);
-//                          }
-//                      }
-//        );
 //         set image in imageView
+//        https://image.tmdb.org/t/p/w500/mXXf5XCsd7Glk6B8Iad8sFhVLjG.jpg
+        String mPathIcon = mContext.getString(R.string.url_icon) +
+                mMovie.getBackdrop_path();
         Picasso.with(mContext)
-                .load(mMove.getPathUrl())
+                .load(mPathIcon)
                 .placeholder(R.mipmap.ic_launcher)
                 .error(R.mipmap.ic_launcher)
                 .into(holder.mImageView);
@@ -78,16 +68,19 @@ public class ListMoveAdapter extends RecyclerView.Adapter<ListMoveAdapter.ItemVi
         holder.mCardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mClickListener.onSelectMove(mMove);
+                mClickListener.onSelectMovie(mMovie);
             }
         });
     }
 
 
+
+
+
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.item_move, parent, false);
+                R.layout.item_movie, parent, false);
         return new ItemViewHolder(view);
     }
 
@@ -99,7 +92,7 @@ public class ListMoveAdapter extends RecyclerView.Adapter<ListMoveAdapter.ItemVi
     }
 
 
-    public interface ClickSelectMove {
-        void onSelectMove(Move path);
+    public interface ClickSelectMovie {
+        void onSelectMovie(ItemMovie path);
     }
 }

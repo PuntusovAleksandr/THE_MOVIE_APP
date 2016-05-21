@@ -86,9 +86,9 @@ public class MovieListFragment extends Fragment {
 
     private void getListIconUri() {
 
-        if (StaticClass.getFilter().equals(mContext.getString(R.string.top))) {
+        if (StaticClass.getFilter().equals(mContext.getString(R.string.top_filter))) {
             loadListMovies(mContext.getString(R.string.top_filter));
-        } else if (StaticClass.getFilter().equals(mContext.getString(R.string.favorite))) {
+        } else if (StaticClass.getFilter().equals(mContext.getString(R.string.top_filter))) {
             loadListMovies(mContext.getString(R.string.top_filter));
         } else loadListMovies(mContext.getString(R.string.popular_filter));
 
@@ -174,7 +174,7 @@ public class MovieListFragment extends Fragment {
                 mRequest = doRequest();
                 if (!mRequest.isEmpty()) {
                     try {
-                        setParamsToUi();
+                        setParamsToUi(mRequest);
                     } catch (JSONException mE) {
                         mE.printStackTrace();
                         System.out.println("Error reading JSON " + mE.getMessage());
@@ -199,11 +199,12 @@ public class MovieListFragment extends Fragment {
          * parse JSON in movie
          *
          * @throws JSONException
+         * @param mRequest
          */
-        private void setParamsToUi() throws JSONException {
+        private void setParamsToUi(String mRequest) throws JSONException {
 
 
-            JSONObject jObj = new JSONObject(this.mRequest);
+            JSONObject jObj = new JSONObject(mRequest);
             String page = jObj.getString("page");
             JSONObject mObjectMovie = null;
 

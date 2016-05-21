@@ -215,12 +215,14 @@ public class MovieListFragment extends Fragment {
                 String mOverview = mObjectMovie.getString("overview");
                 String mRelease_date = mObjectMovie.getString("release_date");
                 String mPoster_path = mObjectMovie.getString("poster_path");
+                String vote_average = mObjectMovie.getString("vote_average");
                 ItemMovie mItemMovie = new ItemMovie(
                         mId,
                         mOriginal_title,
                         mOverview,
                         mRelease_date,
-                        mPoster_path
+                        mPoster_path,
+                        vote_average
                 );
                 mMovies.add(mItemMovie);
             }

@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.aleksandrp.themovieapp.R;
 import com.example.aleksandrp.themovieapp.StartActivity;
 import com.example.aleksandrp.themovieapp.entity.ItemMovie;
+import com.squareup.picasso.Picasso;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -50,7 +51,7 @@ public class ShowMovieFragment extends Fragment {
         ImageView mIconMovie = (ImageView) mView.findViewById(R.id.iv_movie_details);
         TextView mTitle = (TextView) mView.findViewById(R.id.tv_title),
                 mYear = (TextView) mView.findViewById(R.id.tv_year),
-                mDuration = (TextView) mView.findViewById(R.id.tv_duration),
+                mDuration = (TextView) mView.findViewById(R.id.tv_duration),// TODO: absent in Api
                 mRating = (TextView) mView.findViewById(R.id.tv_raiting),
                 mDescription = (TextView) mView.findViewById(R.id.tv_description);
 
@@ -58,17 +59,20 @@ public class ShowMovieFragment extends Fragment {
 
         ListView mListPlaers = (ListView) mView.findViewById(R.id.lv_players);
 
-//        Picasso.with(mContext)
-//                .load(mMovie.getPathUrl())
-//                .placeholder(R.mipmap.ic_launcher)
-//                .error(R.mipmap.ic_launcher)
-//                .into(mIconMovie);
-//        mTitle.setText(mMovie.getTitle());
-//        String mI = mMovie.getIdMovie() +"";
-//        mYear.setText(mI + mI); // TODO: 19.05.2016
-//        mDuration.setText(mI); // TODO: 19.05.2016
-//        mRating.setText(mI); // TODO: 19.05.2016
-//        mDescription.setText(mMovie.getDescription());
+
+        String mPathIcon = mContext.getString(R.string.url_icon) +
+                mMovie.getBackdrop_path();
+        Picasso.with(mContext)
+                .load(mPathIcon)
+                .error(R.mipmap.ic_launcher)
+                .into(mIconMovie);
+
+        mTitle.setText(mMovie.getOriginal_title());
+
+        mYear.setText(mMovie.getRelease_date());
+//        mDuration.setText(mMovie.getOverview()); // TODO: absent in Api
+        mRating.setText(mMovie.getPopularity());
+        mDescription.setText((mMovie.getOverview()));
 
     }
 

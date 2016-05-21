@@ -13,14 +13,27 @@ public class ItemMovie {
     private String overview;
     private String release_date;
     private String backdrop_path;
+    private String popularity;
 
 
-    public ItemMovie(String mId, String mOriginal_title, String mOvierview, String mRelease_date, String mBackdrop_path) {
+
+
+    public ItemMovie(String mId, String mOriginal_title, String mOvierview, String mRelease_date,
+                     String mBackdrop_path, String mPopularity) {
         id = mId;
         original_title = mOriginal_title;
         overview = mOvierview;
         release_date = mRelease_date;
         backdrop_path = mBackdrop_path;
+        popularity = mPopularity;
+    }
+
+    public String getPopularity() {
+        return popularity;
+    }
+
+    public void setPopularity(String mPopularity) {
+        popularity = mPopularity;
     }
 
     public String getBackdrop_path() {

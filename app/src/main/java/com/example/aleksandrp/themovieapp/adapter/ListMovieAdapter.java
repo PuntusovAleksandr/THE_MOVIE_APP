@@ -56,7 +56,6 @@ public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.Item
         final ItemMovie mMovie = mListPath.get(position);
 
 //         set image in imageView
-//        https://image.tmdb.org/t/p/w500/mXXf5XCsd7Glk6B8Iad8sFhVLjG.jpg
         String mPathIcon = mContext.getString(R.string.url_icon) +
                 mMovie.getBackdrop_path();
         Picasso.with(mContext)
@@ -72,10 +71,6 @@ public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.Item
             }
         });
     }
-
-
-
-
 
     @Override
     public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

@@ -79,6 +79,7 @@ public class StartActivity extends AppCompatActivity implements
     public void onSelectMovie(ItemMovie mMovie) {
         startShowMovieFragment(mMovie);
     }
+
     @Override
     public void onBackPressed() {
         backPress();

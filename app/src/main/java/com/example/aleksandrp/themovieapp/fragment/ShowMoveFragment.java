@@ -13,6 +13,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.aleksandrp.themovieapp.R;
+import com.example.aleksandrp.themovieapp.StartActivity;
 import com.example.aleksandrp.themovieapp.entity.Move;
 import com.squareup.picasso.Picasso;
 
@@ -23,12 +24,14 @@ public class ShowMoveFragment extends Fragment {
 
     private Move mMove;
     private Context mContext;
+    private StartActivity mStartActivity;
 
     public ShowMoveFragment() {
     }
 
-    public ShowMoveFragment(Move mMove) {
+    public ShowMoveFragment(StartActivity mStartActivity, Move mMove) {
         // Required empty public constructor
+        this.mStartActivity = mStartActivity;
         this.mMove = mMove;
     }
 

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.aleksandrp.themovieapp.adapter.ListMoveAdapter;
@@ -15,6 +16,7 @@ import com.example.aleksandrp.themovieapp.entity.Move;
 import com.example.aleksandrp.themovieapp.fragment.MoveListFragment;
 import com.example.aleksandrp.themovieapp.fragment.ShowMoveFragment;
 import com.example.aleksandrp.themovieapp.params.StaticParams;
+import com.example.aleksandrp.themovieapp.settings.StaticClass;
 
 public class StartActivity extends AppCompatActivity implements
         StaticParams,
@@ -24,17 +26,18 @@ public class StartActivity extends AppCompatActivity implements
 
     private boolean doubleBackToExitPressedOnce = false;
 
+    public ProgressBar mProgressBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-
         mFragmentManager = getFragmentManager();
+        mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
 
+        StaticClass.setFilter(getString(R.string.popular));     // set param filter moves
         startListFragment();
     }
 
@@ -46,7 +49,7 @@ public class StartActivity extends AppCompatActivity implements
                 (MoveListFragment) getFragmentManager().findFragmentByTag(MOVE_LIST_FRAGMENT);
 
         if (mFragment == null) {
-            mFragment = new MoveListFragment();
+            mFragment = new MoveListFragment(StartActivity.this);
         }
         setFragment(mFragment, MOVE_LIST_FRAGMENT);
     }
@@ -61,7 +64,7 @@ public class StartActivity extends AppCompatActivity implements
                 (ShowMoveFragment) getFragmentManager().findFragmentByTag(SHOW_MOVE_FRAGMENT);
 
         if (mFragment == null) {
-            mFragment = new ShowMoveFragment(mMove);
+            mFragment = new ShowMoveFragment(StartActivity.this, mMove);
         }
         setFragment(mFragment, SHOW_MOVE_FRAGMENT);
     }
@@ -115,31 +118,32 @@ public class StartActivity extends AppCompatActivity implements
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+//    @Override
+//    public boolean onOptionsItemSelected(MenuItem item) {
+//        // Handle action bar item clicks here. The action bar will
+//        // automatically handle clicks on the Home/Up button, so long
+//        // as you specify a parent activity in AndroidManifest.xml.
+//        int id = item.getItemId();
+//
+//        //noinspection SimplifiableIfStatement
+//        String text = "";
+//
+//        switch (id) {
+//            case R.id.dnepr:
+//                text = "1";
+//                break;
+//            case R.id.nikopol:
+//                text = "2";
+//                break;
+//            case R.id.kiev:
+//                text = "3";
+//                break;
+//        }
+//        Toast.makeText(StartActivity.this, text, Toast.LENGTH_SHORT).show();
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
-        //noinspection SimplifiableIfStatement
-        String text = "";
-
-        switch (id) {
-            case R.id.dnepr:
-                text = "1";
-                break;
-            case R.id.nikopol:
-                text = "2";
-                break;
-            case R.id.kiev:
-                text = "3";
-                break;
-        }
-        Toast.makeText(StartActivity.this, text, Toast.LENGTH_SHORT).show();
-
-        return super.onOptionsItemSelected(item);
-    }
 
 
 }

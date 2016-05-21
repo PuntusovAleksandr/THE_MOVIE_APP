@@ -5,19 +5,19 @@
 
 
     <item
-        android:id="@+id/dnepr"
+        android:id="@+id/popular_menu"
         android:orderInCategory="100"
         android:title="@string/popular"
         app:showAsAction="never"/>
 
     <item
-        android:id="@+id/nikopol"
+        android:id="@+id/rop_menu"
         android:orderInCategory="200"
         android:title="@string/top"
         app:showAsAction="never"/>
 
     <item
-        android:id="@+id/kiev"
+        android:id="@+id/favorit_menu"
         android:orderInCategory="300"
         android:title="@string/favorite"
         app:showAsAction="never"/>

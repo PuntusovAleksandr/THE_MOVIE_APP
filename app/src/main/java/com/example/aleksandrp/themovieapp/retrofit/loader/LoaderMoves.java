@@ -1,11 +1,10 @@
 package com.example.aleksandrp.themovieapp.retrofit.loader;
 
 import com.example.aleksandrp.themovieapp.entity.Move;
-import com.example.aleksandrp.themovieapp.retrofit.ThemoviedbServvice;
+import com.example.aleksandrp.themovieapp.retrofit.MovieDbService;
 
 import java.util.List;
 
-import retrofit2.Call;
 import retrofit2.Retrofit;
 
 /**
@@ -14,7 +13,7 @@ import retrofit2.Retrofit;
 public class LoaderMoves {
 
     private Retrofit mRetrofit;
-    private ThemoviedbServvice mServvice;
+    private MovieDbService mServvice;
 
     private String BASE_URL = "http://api.themoviedb.org/3/movie/popular?";
 
@@ -26,7 +25,7 @@ public class LoaderMoves {
     }
 
     public List<Move> getPopularMove() {
-        mServvice = mRetrofit.create(ThemoviedbServvice.class);
+        mServvice = mRetrofit.create(MovieDbService.class);
 //        Call<List<Move>> mListCall = mServvice.getListPopular()
         return null;
     }

@@ -1,4 +1,7 @@
 <resources>
+    <string name="api_key">300edfebf6c620fdf7166e06f2b0af8a</string>
+
+
     <string name="app_name">THE MOVIE APP</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -13,4 +16,7 @@
 
 
     <string name="check_internet">Please check your internet connection state</string>
+    <string name="top_filter">top_rated</string>
+    <string name="popular_filter">popular</string>
+    <string name="base_url">http://api.themoviedb.org/3/</string>
 </resources>

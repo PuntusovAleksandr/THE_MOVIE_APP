@@ -209,13 +209,13 @@ public class MovieListFragment extends Fragment {
 
             JSONArray jObjJSONArray = jObj.getJSONArray("results");
             for (int i = 0; i < jObjJSONArray.length(); i++) {
-                mObjectMovie = jObjJSONArray.getJSONObject(1);
+                mObjectMovie = jObjJSONArray.getJSONObject(i);
                 String mId = mObjectMovie.getString("id");
                 String mOriginal_title = mObjectMovie.getString("original_title");
                 String mOverview = mObjectMovie.getString("overview");
                 String mRelease_date = mObjectMovie.getString("release_date");
                 String mPoster_path = mObjectMovie.getString("poster_path");
-                String vote_average = mObjectMovie.getString("vote_average");
+                String vote_average = mObjectMovie.getString("vote_average") + "/10";
                 ItemMovie mItemMovie = new ItemMovie(
                         mId,
                         mOriginal_title,

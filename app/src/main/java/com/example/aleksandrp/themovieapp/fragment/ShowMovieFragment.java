@@ -49,7 +49,6 @@ public class ShowMovieFragment extends Fragment {
 
     private TextView mDuration;
 
-//    private ListView mListPlaers;
     private RecyclerView mRecyclerView;
     private LinearLayoutManager mLayoutManager;
 
@@ -98,7 +97,6 @@ public class ShowMovieFragment extends Fragment {
             }
         });
 
-//        mListPlaers = (ListView) mView.findViewById(R.id.lv_players);
         mRecyclerView = (RecyclerView) mView.findViewById(R.id.recycler_view_card);
         mLayoutManager = new LinearLayoutManager(mContext);
         mRecyclerView.setLayoutManager(mLayoutManager);

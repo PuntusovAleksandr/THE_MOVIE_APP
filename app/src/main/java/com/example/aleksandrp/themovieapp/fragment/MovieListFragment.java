@@ -230,16 +230,12 @@ public class MovieListFragment extends Fragment {
             mMovie.setPage(page);
             mMovie.setItemMovies(mMovies);
 
-//            setMovie(mMovie);
-
         }
 
         /**
          * @return responce from server
          */
         String doRequest() throws UnsupportedEncodingException {
-
-            //    http://api.themoviedb.org/3/movie/popular?api_key=300edfebf6c620fdf7166e06f2b0af8a
 
             String data = URLEncoder.encode("api_key", "UTF-8")
                     + "=" + URLEncoder.encode((mContext.getString(R.string.api_key)), "UTF-8");

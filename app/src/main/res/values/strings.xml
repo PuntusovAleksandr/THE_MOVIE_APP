@@ -20,4 +20,5 @@
     <string name="popular_filter">popular?</string>
     <string name="base_url">http://api.themoviedb.org/3/movie/</string>
     <string name="url_icon">https://image.tmdb.org/t/p/w500/</string>
+    <string name="minute">\t min</string>
 </resources>

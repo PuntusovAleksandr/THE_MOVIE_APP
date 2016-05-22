@@ -15,7 +15,7 @@ public class ItemMovie {
     private String backdrop_path;
     private String popularity;
 
-
+    private String runtime;
 
 
     public ItemMovie(String mId, String mOriginal_title, String mOvierview, String mRelease_date,
@@ -26,6 +26,14 @@ public class ItemMovie {
         release_date = mRelease_date;
         backdrop_path = mBackdrop_path;
         popularity = mPopularity;
+    }
+
+    public String getRuntime() {
+        return runtime;
+    }
+
+    public void setRuntime(String mRuntime) {
+        runtime = mRuntime;
     }
 
     public String getPopularity() {

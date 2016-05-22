@@ -131,7 +131,6 @@ public class ShowMovieFragment extends Fragment {
     private void initAdapterByListPlaers(List<String> mPlayers) {
         BoxAdapter mBoxAdapter = new BoxAdapter(mContext, mPlayers);
         mRecyclerView.setAdapter(mBoxAdapter);
-//        mListPlaers.setAdapter(mBoxAdapter);
 
     }
 

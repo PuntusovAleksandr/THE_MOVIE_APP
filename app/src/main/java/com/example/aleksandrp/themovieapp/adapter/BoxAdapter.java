@@ -19,7 +19,7 @@ import java.util.List;
  * Created by AleksandrP on 22.05.2016.
  */
 
-public class BoxAdapter extends RecyclerView.Adapter<BoxAdapter.ViewHolder> {
+public class BoxAdapter extends RecyclerView.Adapter<BoxAdapter.ViewHolder> implements StaticParams {
 
     List<String> videoList;
     Context mContext;

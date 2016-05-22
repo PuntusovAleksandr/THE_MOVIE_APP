@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,6 +20,7 @@ import android.widget.TextView;
 import com.example.aleksandrp.themovieapp.R;
 import com.example.aleksandrp.themovieapp.StartActivity;
 import com.example.aleksandrp.themovieapp.adapter.BoxAdapter;
+import com.example.aleksandrp.themovieapp.db.RealmDb;
 import com.example.aleksandrp.themovieapp.entity.ItemMovie;
 import com.example.aleksandrp.themovieapp.entity.Movie;
 import com.example.aleksandrp.themovieapp.params.StaticParams;
@@ -40,10 +42,12 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.realm.Realm;
+
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ShowMovieFragment extends Fragment {
+public class ShowMovieFragment extends Fragment implements StaticParams {
 
     private ItemMovie mItemMovie;
     private Context mContext;
@@ -83,7 +87,7 @@ public class ShowMovieFragment extends Fragment {
     }
 
     private void initUi(View mView) {
-        ImageView mIconMovie = (ImageView) mView.findViewById(R.id.iv_movie_details);
+        final ImageView mIconMovie = (ImageView) mView.findViewById(R.id.iv_movie_details);
         TextView mTitle = (TextView) mView.findViewById(R.id.tv_title),
                 mYear = (TextView) mView.findViewById(R.id.tv_year),
                 mRating = (TextView) mView.findViewById(R.id.tv_raiting),
@@ -95,7 +99,8 @@ public class ShowMovieFragment extends Fragment {
         btFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // TODO: 22.05.2016 will add to database
+                RealmDb.getInstance(mContext).addMovieToFavorite(mItemMovie);
+                Snackbar.make(v, "This move added in your favorite", Snackbar.LENGTH_SHORT).show();
             }
         });
 

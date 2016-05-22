@@ -10,6 +10,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.aleksandrp.themovieapp.adapter.ListMovieAdapter;
+import com.example.aleksandrp.themovieapp.db.RealmDb;
 import com.example.aleksandrp.themovieapp.entity.ItemMovie;
 import com.example.aleksandrp.themovieapp.fragment.MovieListFragment;
 import com.example.aleksandrp.themovieapp.fragment.ShowMovieFragment;
@@ -117,32 +118,9 @@ public class StartActivity extends AppCompatActivity implements
         return true;
     }
 
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        int id = item.getItemId();
-//
-//        //noinspection SimplifiableIfStatement
-//        String text = "";
-//
-//        switch (id) {
-//            case R.id.dnepr:
-//                text = "1";
-//                break;
-//            case R.id.nikopol:
-//                text = "2";
-//                break;
-//            case R.id.kiev:
-//                text = "3";
-//                break;
-//        }
-//        Toast.makeText(StartActivity.this, text, Toast.LENGTH_SHORT).show();
-//
-//        return super.onOptionsItemSelected(item);
-//    }
-
-
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        RealmDb.getInstance(StartActivity.this).stopRealm();
+    }
 }

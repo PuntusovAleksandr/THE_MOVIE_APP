@@ -9,4 +9,6 @@ public interface StaticParams {
             ORIGIN = "origin",
             SHOW_MOVIE_FRAGMENT = "ShowMovieFragment";
 
+
+    int VERSION_DB = 1;
 }

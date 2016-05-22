@@ -1,6 +1,8 @@
 package com.example.aleksandrp.themovieapp.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -9,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.aleksandrp.themovieapp.R;
+import com.example.aleksandrp.themovieapp.params.StaticParams;
 
 import java.util.List;
 
@@ -35,12 +38,19 @@ public class BoxAdapter extends RecyclerView.Adapter<BoxAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
+        final String path = videoList.get(position);
 
         holder.textTitle.setText(mContext.getString(R.string.player) + (position + 1));
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (path.contains(StaticParams.ORIGIN)) {
+                    String mReplace = path.replace(StaticParams.ORIGIN, "");
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(mReplace));
+                    mContext.startActivity(browserIntent);
+                } else {
+                    // TODO: 22.05.2016 open in Api Youtube
+                }
             }
         });
     }

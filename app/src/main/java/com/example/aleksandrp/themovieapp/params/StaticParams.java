@@ -6,6 +6,7 @@ package com.example.aleksandrp.themovieapp.params;
 public interface StaticParams {
 
     String MOVIE_LIST_FRAGMENT = "MovieListFragment",
+            ORIGIN = "origin",
             SHOW_MOVIE_FRAGMENT = "ShowMovieFragment";
 
 }

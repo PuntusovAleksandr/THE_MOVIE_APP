@@ -21,6 +21,8 @@ import com.example.aleksandrp.themovieapp.StartActivity;
 import com.example.aleksandrp.themovieapp.adapter.BoxAdapter;
 import com.example.aleksandrp.themovieapp.entity.ItemMovie;
 import com.example.aleksandrp.themovieapp.entity.Movie;
+import com.example.aleksandrp.themovieapp.params.StaticParams;
+import com.example.aleksandrp.themovieapp.settings.StaticClass;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
@@ -129,6 +131,10 @@ public class ShowMovieFragment extends Fragment {
      * @param mPlayers
      */
     private void initAdapterByListPlaers(List<String> mPlayers) {
+        if (mItemMovie.getHomepage() != null && !mItemMovie.getHomepage().isEmpty()) {
+            mPlayers.add(StaticParams.ORIGIN + mItemMovie.getHomepage());
+        }
+
         BoxAdapter mBoxAdapter = new BoxAdapter(mContext, mPlayers);
         mRecyclerView.setAdapter(mBoxAdapter);
 

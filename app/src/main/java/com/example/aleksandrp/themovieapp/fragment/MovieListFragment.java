@@ -7,6 +7,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -42,14 +43,22 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MovieListFragment extends Fragment {
+public class MovieListFragment extends Fragment
+        implements SwipeRefreshLayout.OnRefreshListener {
 
     private Context mContext;
     private StartActivity mStartActivity;
     private List<ItemMovie> mListMovies;
     private ListMovieAdapter mMovieAdapter;
     private RecyclerView mRecyclerView;
+    private GridLayoutManager linearLayoutManager;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+
     private Movie mMovie;
+
+
+    int currentPage = 1;
+    private boolean mIsLoading = false;
 
     @TargetApi(Build.VERSION_CODES.M)
     public MovieListFragment(StartActivity mStartActivity) {
@@ -72,16 +81,45 @@ public class MovieListFragment extends Fragment {
         mContext = getActivity();
 
         mRecyclerView = (RecyclerView) mView.findViewById(R.id.recycler_view_params);
-        GridLayoutManager linearLayoutManager = new GridLayoutManager(mContext, 2);
+        linearLayoutManager = new GridLayoutManager(mContext, 2);
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setHasFixedSize(true);
         mListMovies = new ArrayList<>();
-        getListIconUri();
-//        mMovieAdapter = new ListMovieAdapter(mListMovies, mContext);
 
-//        mRecyclerView.setAdapter(mMovieAdapter);
+        mSwipeRefreshLayout = (SwipeRefreshLayout) mView.findViewById(R.id.refreshLayout);
+        mSwipeRefreshLayout.setOnRefreshListener(this);
+
+        mRecyclerView.setOnScrollListener(mRecyclerViewOnScrollListener);
+
+        getListIconUri();
+
         return mView;
     }
+
+
+    private RecyclerView.OnScrollListener mRecyclerViewOnScrollListener =
+            new RecyclerView.OnScrollListener() {
+                @Override
+                public void onScrollStateChanged(RecyclerView recyclerView,
+                                                 int newState) {
+                    super.onScrollStateChanged(recyclerView, newState);
+                }
+
+                @Override
+                public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                    super.onScrolled(recyclerView, dx, dy);
+                    int visibleItemCount = linearLayoutManager.getChildCount();
+                    int totalItemCount = linearLayoutManager.getItemCount();
+                    int firstVisibleItemPosition = linearLayoutManager.findFirstVisibleItemPosition();
+
+                    if (!mIsLoading) {
+                        if ((visibleItemCount + firstVisibleItemPosition) >= totalItemCount
+                                && firstVisibleItemPosition >= 0) {
+                            getListIconUri();
+                        }
+                    }
+                }
+            };
 
 
     private void getListIconUri() {
@@ -143,10 +181,19 @@ public class MovieListFragment extends Fragment {
         }
         mListMovies = mMovie.getItemMovies();
         if (mMovieAdapter != null) {
+//            mMovieAdapter.notifyDataSetChanged();
             mMovieAdapter = null;
         }
+//        else
         mMovieAdapter = new ListMovieAdapter(mListMovies, mContext);
         mRecyclerView.setAdapter(mMovieAdapter);
+    }
+
+    @Override
+    public void onRefresh() {
+        mListMovies.clear();
+        currentPage = 1;
+        getListIconUri();
     }
 
 
@@ -166,6 +213,9 @@ public class MovieListFragment extends Fragment {
         protected void onPreExecute() {
             super.onPreExecute();
             mStartActivity.mProgressBar.setVisibility(View.VISIBLE);
+
+            mIsLoading = false;
+            mSwipeRefreshLayout.setRefreshing(true);
         }
 
         @Override
@@ -190,16 +240,18 @@ public class MovieListFragment extends Fragment {
         @Override
         protected void onPostExecute(Object o) {
             super.onPostExecute(o);
+            mSwipeRefreshLayout.setRefreshing(false);
             mStartActivity.mProgressBar.setVisibility(View.GONE);
             Log.i(TAG, "START" + mRequest);
             setMovie(mMovie);
+            currentPage++;
         }
 
         /**
          * parse JSON in movie
          *
-         * @throws JSONException
          * @param mRequest
+         * @throws JSONException
          */
         private void setParamsToUi(String mRequest) throws JSONException {
 
@@ -239,6 +291,9 @@ public class MovieListFragment extends Fragment {
 
             String data = URLEncoder.encode("api_key", "UTF-8")
                     + "=" + URLEncoder.encode((mContext.getString(R.string.api_key)), "UTF-8");
+
+            data = data + "&" + URLEncoder.encode("page", "UTF-8")
+                    + "=" + URLEncoder.encode(currentPage + "", "UTF-8");
 
             String text = "";
             BufferedReader reader = null;

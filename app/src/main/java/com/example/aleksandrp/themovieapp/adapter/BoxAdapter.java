@@ -53,6 +53,9 @@ public class BoxAdapter extends RecyclerView.Adapter<BoxAdapter.ViewHolder> impl
                     Intent mIntentYoutube = new Intent(mContext, YouTubeActivity.class);
                     mIntentYoutube.putExtra(PATH_KEY, path);
                     mContext.startActivity(mIntentYoutube);
+
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("vnd.youtube://" + path));
+                    mContext.startActivity(intent);
                 }
             }
         });

@@ -7,6 +7,7 @@ public interface StaticParams {
 
     String MOVIE_LIST_FRAGMENT = "MovieListFragment",
             ORIGIN = "origin",
+            PATH_KEY = "path_video",
             SHOW_MOVIE_FRAGMENT = "ShowMovieFragment";
 
 

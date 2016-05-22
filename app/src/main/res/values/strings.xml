@@ -1,6 +1,8 @@
 <resources>
     <string name="api_key">300edfebf6c620fdf7166e06f2b0af8a</string>
 
+    <string name="api_key_youtube">AIzaSyC7u0ugt14Ak_qkbVLC22wEK-xic8eW5Aw</string>
+
 
     <string name="app_name">THE MOVIE APP</string>
 

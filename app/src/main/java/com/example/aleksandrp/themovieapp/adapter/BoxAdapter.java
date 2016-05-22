@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.aleksandrp.themovieapp.R;
 import com.example.aleksandrp.themovieapp.params.StaticParams;
+import com.example.aleksandrp.themovieapp.youtube.YouTubeActivity;
 
 import java.util.List;
 
@@ -49,7 +50,9 @@ public class BoxAdapter extends RecyclerView.Adapter<BoxAdapter.ViewHolder> impl
                     Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(mReplace));
                     mContext.startActivity(browserIntent);
                 } else {
-                    // TODO: 22.05.2016 open in Api Youtube
+                    Intent mIntentYoutube = new Intent(mContext, YouTubeActivity.class);
+                    mIntentYoutube.putExtra(PATH_KEY, path);
+                    mContext.startActivity(mIntentYoutube);
                 }
             }
         });

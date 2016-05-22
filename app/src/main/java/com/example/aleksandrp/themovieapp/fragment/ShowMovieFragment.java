@@ -78,10 +78,16 @@ public class ShowMovieFragment extends Fragment {
                 mYear = (TextView) mView.findViewById(R.id.tv_year),
                 mRating = (TextView) mView.findViewById(R.id.tv_raiting),
                 mDescription = (TextView) mView.findViewById(R.id.tv_description);
-        mDuration = (TextView) mView.findViewById(R.id.tv_duration);// TODO: absent in Api
+        mDuration = (TextView) mView.findViewById(R.id.tv_duration);
 
 
         Button btFavorite = (Button) mView.findViewById(R.id.bt_favorite);
+        btFavorite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // TODO: 22.05.2016 will add to database
+            }
+        });
 
         ListView mListPlaers = (ListView) mView.findViewById(R.id.lv_players);
 
@@ -109,6 +115,7 @@ public class ShowMovieFragment extends Fragment {
 
     private void setMovie(String mText) {
         mDuration.setText(mText);
+        mItemMovie.setRuntime(mText);
     }
 
 

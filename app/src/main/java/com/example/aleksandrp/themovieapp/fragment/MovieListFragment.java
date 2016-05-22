@@ -7,6 +7,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +22,7 @@ import android.view.ViewGroup;
 import com.example.aleksandrp.themovieapp.R;
 import com.example.aleksandrp.themovieapp.StartActivity;
 import com.example.aleksandrp.themovieapp.adapter.ListMovieAdapter;
+import com.example.aleksandrp.themovieapp.db.RealmDb;
 import com.example.aleksandrp.themovieapp.entity.ItemMovie;
 import com.example.aleksandrp.themovieapp.entity.Movie;
 import com.example.aleksandrp.themovieapp.settings.StaticClass;
@@ -100,8 +102,7 @@ public class MovieListFragment extends Fragment
     private RecyclerView.OnScrollListener mRecyclerViewOnScrollListener =
             new RecyclerView.OnScrollListener() {
                 @Override
-                public void onScrollStateChanged(RecyclerView recyclerView,
-                                                 int newState) {
+                public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
                     super.onScrollStateChanged(recyclerView, newState);
                 }
 
@@ -124,12 +125,25 @@ public class MovieListFragment extends Fragment
 
     private void getListIconUri() {
 
-        if (StaticClass.getFilter().equals(mContext.getString(R.string.top_filter))) {
-            loadListMovies(mContext.getString(R.string.top_filter));
+        if (StaticClass.getFilter().equals(mContext.getString(R.string.favorite_filter))) {
+            loadListMoviesFromDb();
         } else if (StaticClass.getFilter().equals(mContext.getString(R.string.top_filter))) {
             loadListMovies(mContext.getString(R.string.top_filter));
         } else loadListMovies(mContext.getString(R.string.popular_filter));
 
+    }
+
+    private void loadListMoviesFromDb() {
+        Handler mHandler = new Handler();
+        mHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                mMovie.setItemMovies(RealmDb.getInstance(mContext).getMoviesFavorite());
+                setMovie(mMovie);
+            }
+        });
+        mStartActivity.mProgressBar.setVisibility(View.GONE);
+        mIsLoading = true;
     }
 
 
@@ -162,15 +176,26 @@ public class MovieListFragment extends Fragment
                 text = mContext.getString(R.string.top_filter);
                 break;
             case R.id.favorit_menu:
-                text = mContext.getString(R.string.popular_filter);
+                text = mContext.getString(R.string.favorite_filter);
                 break;
         }
 
         StaticClass.setFilter(text);     // set param filter movies
 
+        currentPage = 1;
+
         getListIconUri();
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (StaticClass.getFilter().equals(mContext.getString(R.string.favorite_filter)) && mMovie ==null) {
+            mMovie = new Movie();
+            mMovie.setPage("1");
+        }
     }
 
     public void setMovie(Movie mMovie) {

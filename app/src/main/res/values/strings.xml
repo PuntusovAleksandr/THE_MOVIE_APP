@@ -18,8 +18,11 @@
     <string name="check_internet">Please check your internet connection state</string>
     <string name="top_filter">top_rated?</string>
     <string name="popular_filter">popular?</string>
+    <string name="favorite_filter">favorite</string>
     <string name="base_url">http://api.themoviedb.org/3/movie/</string>
     <string name="url_icon">https://image.tmdb.org/t/p/w500/</string>
     <string name="minute">\t min</string>
     <string name="player">"Player "</string>
+    <string name="you_have_move">You have it move in favorite</string>
+    <string name="added_move">This move added in your favorite</string>
 </resources>

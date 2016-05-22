@@ -61,7 +61,6 @@ public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.Item
         Picasso.with(mContext)
                 .load(mPathIcon)
                 .placeholder(R.drawable.doownload)
-                .error(R.mipmap.ic_launcher)
                 .into(holder.mImageView);
 
         holder.mCardView.setOnClickListener(new View.OnClickListener() {

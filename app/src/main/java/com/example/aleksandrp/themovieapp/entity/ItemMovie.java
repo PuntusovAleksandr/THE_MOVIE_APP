@@ -31,6 +31,20 @@ public class ItemMovie {
         popularity = mPopularity;
     }
 
+    public ItemMovie(String mId, String mOriginal_title, String mOverview, String mRelease_date,
+                     String mBackdrop_path, String mPopularity, String mRuntime, String mHomepage,
+                     List<String> mPlayers) {
+        id = mId;
+        original_title = mOriginal_title;
+        overview = mOverview;
+        release_date = mRelease_date;
+        backdrop_path = mBackdrop_path;
+        popularity = mPopularity;
+        runtime = mRuntime;
+        homepage = mHomepage;
+        players = mPlayers;
+    }
+
     public List<String> getPlayers() {
         return players;
     }

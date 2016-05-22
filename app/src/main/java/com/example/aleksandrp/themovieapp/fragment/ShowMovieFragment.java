@@ -73,6 +73,7 @@ public class ShowMovieFragment extends Fragment implements StaticParams {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        setRetainInstance(true);
         // Inflate the layout for this fragment
         View mView = inflater.inflate(R.layout.fragment_show_movie, container, false);
         mContext = getActivity();
@@ -99,8 +100,12 @@ public class ShowMovieFragment extends Fragment implements StaticParams {
         btFavorite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RealmDb.getInstance(mContext).addMovieToFavorite(mItemMovie);
-                Snackbar.make(v, "This move added in your favorite", Snackbar.LENGTH_SHORT).show();
+                if (RealmDb.getInstance(mContext).checkIsNotExistMove(mItemMovie.getId())) {
+                    Snackbar.make(v, R.string.you_have_move, Snackbar.LENGTH_SHORT).show();
+                }else {
+                    RealmDb.getInstance(mContext).addMovieToFavorite(mItemMovie);
+                    Snackbar.make(v, R.string.added_move, Snackbar.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -115,7 +120,6 @@ public class ShowMovieFragment extends Fragment implements StaticParams {
         Picasso.with(mContext)
                 .load(mPathIcon)
                 .placeholder(R.drawable.doownload)
-                .error(R.mipmap.ic_launcher)
                 .into(mIconMovie);
 
         mTitle.setText(mItemMovie.getOriginal_title());

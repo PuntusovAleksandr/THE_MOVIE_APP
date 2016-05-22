@@ -6,7 +6,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/activity_vertical_margin">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -76,8 +77,8 @@
                             android:id="@+id/tv_raiting"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textSize="@dimen/duration_size"
-                            android:layout_marginTop="@dimen/activity_horizontal_margin"/>
+                            android:layout_marginTop="@dimen/activity_horizontal_margin"
+                            android:textSize="@dimen/duration_size"/>
 
                         <Button
                             android:id="@+id/bt_favorite"
@@ -110,21 +111,34 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_description"
                     android:layout_marginTop="@dimen/cardview_default_elevation"
-                    android:textSize="@dimen/duration_size"
-                    android:text="@string/trailers"/>
+                    android:text="@string/trailers"
+                    android:textSize="@dimen/duration_size"/>
 
-                <ScrollView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_below="@+id/tv_trailers">
 
-                    <ListView
-                        android:id="@+id/lv_players"
+                    <android.support.v7.widget.RecyclerView
+                        xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/recycler_view_card"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"/>
 
-                </ScrollView>
 
+
+                    <!--<ScrollView-->
+                        <!--android:layout_width="match_parent"-->
+                        <!--android:layout_height="match_parent">-->
+
+                        <!--<ListView-->
+                            <!--android:id="@+id/lv_players"-->
+                            <!--android:layout_width="match_parent"-->
+                            <!--android:layout_height="wrap_content"-->
+                            <!--android:layout_margin="@dimen/activity_vertical_margin"/>-->
+
+                    <!--</ScrollView>-->
+                </LinearLayout>
             </RelativeLayout>
         </RelativeLayout>
     </ScrollView>

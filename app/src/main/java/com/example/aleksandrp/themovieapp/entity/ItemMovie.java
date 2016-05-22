@@ -3,6 +3,8 @@ package com.example.aleksandrp.themovieapp.entity;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * Created by AleksandrP on 21.05.2016.
  */
@@ -16,6 +18,9 @@ public class ItemMovie {
     private String popularity;
 
     private String runtime;
+    private String homepage;
+
+    private List<String> players;
 
 
     public ItemMovie(String mId, String mOriginal_title, String mOvierview, String mRelease_date,
@@ -26,6 +31,22 @@ public class ItemMovie {
         release_date = mRelease_date;
         backdrop_path = mBackdrop_path;
         popularity = mPopularity;
+    }
+
+    public List<String> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(List<String> mPlayers) {
+        players = mPlayers;
+    }
+
+    public String getHomepage() {
+        return homepage;
+    }
+
+    public void setHomepage(String mHomepage) {
+        homepage = mHomepage;
     }
 
     public String getRuntime() {

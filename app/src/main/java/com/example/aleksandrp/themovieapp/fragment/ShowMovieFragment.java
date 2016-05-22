@@ -5,6 +5,8 @@ import android.app.Fragment;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,10 +18,12 @@ import android.widget.TextView;
 
 import com.example.aleksandrp.themovieapp.R;
 import com.example.aleksandrp.themovieapp.StartActivity;
+import com.example.aleksandrp.themovieapp.adapter.BoxAdapter;
 import com.example.aleksandrp.themovieapp.entity.ItemMovie;
 import com.example.aleksandrp.themovieapp.entity.Movie;
 import com.squareup.picasso.Picasso;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -44,6 +48,11 @@ public class ShowMovieFragment extends Fragment {
     private StartActivity mStartActivity;
 
     private TextView mDuration;
+
+//    private ListView mListPlaers;
+    private RecyclerView mRecyclerView;
+    private LinearLayoutManager mLayoutManager;
+
 
 
     public ShowMovieFragment() {
@@ -89,7 +98,11 @@ public class ShowMovieFragment extends Fragment {
             }
         });
 
-        ListView mListPlaers = (ListView) mView.findViewById(R.id.lv_players);
+//        mListPlaers = (ListView) mView.findViewById(R.id.lv_players);
+        mRecyclerView = (RecyclerView) mView.findViewById(R.id.recycler_view_card);
+        mLayoutManager = new LinearLayoutManager(mContext);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        getListPlayers();
 
 
         String mPathIcon = mContext.getString(R.string.url_icon) +
@@ -113,9 +126,27 @@ public class ShowMovieFragment extends Fragment {
     }
 
 
-    private void setMovie(String mText) {
-        mDuration.setText(mText);
-        mItemMovie.setRuntime(mText);
+    /**
+     * init and set adapter players afte load data
+     * @param mPlayers
+     */
+    private void initAdapterByListPlaers(List<String> mPlayers) {
+        BoxAdapter mBoxAdapter = new BoxAdapter(mContext, mPlayers);
+        mRecyclerView.setAdapter(mBoxAdapter);
+//        mListPlaers.setAdapter(mBoxAdapter);
+
+    }
+
+
+    private void setMovie(String[] mText) {
+        mDuration.setText(mText[0]);
+        mItemMovie.setRuntime(mText[0]);
+        mItemMovie.setHomepage(mText[1]);
+    }
+
+    public void getListPlayers() {
+        LoadListPlayers mLoadParams = new LoadListPlayers(mContext, mItemMovie.getId());
+        mLoadParams.execute();
     }
 
 
@@ -153,7 +184,7 @@ public class ShowMovieFragment extends Fragment {
             super.onPostExecute(o);
             mStartActivity.mProgressBar.setVisibility(View.GONE);
             Log.i(TAG, "START" + mRequest);
-            String text = "";
+            String[] text = new String[2];
             if (!mRequest.isEmpty()) {
                 try {
                     text = setParamsToUi(mRequest);
@@ -172,13 +203,136 @@ public class ShowMovieFragment extends Fragment {
          * @param mRequest
          * @throws JSONException
          */
-        private String setParamsToUi(String mRequest) throws JSONException {
+        private String[] setParamsToUi(String mRequest) throws JSONException {
 
 
             JSONObject jObj = new JSONObject(mRequest);
             String runtime = jObj.getString("runtime") + mContext.getString(R.string.minute);
+            String homepage = jObj.getString("homepage");
             mItemMovie.setRuntime(runtime);
-            return runtime;
+            mItemMovie.setHomepage(homepage);
+            return new String[] {runtime, homepage};
+        }
+
+        /**
+         * @return responce from server
+         */
+        String doRequest() throws UnsupportedEncodingException {
+
+            String data = URLEncoder.encode("api_key", "UTF-8")
+                    + "=" + URLEncoder.encode((mContext.getString(R.string.api_key)), "UTF-8");
+
+            String text = "";
+            BufferedReader reader = null;
+
+
+            // Send data
+            try {
+                // Defined URL  where to send data
+                URL url = new URL(mContext.getString(R.string.base_url) + mId + data);
+                // Send GGT data request
+                HttpURLConnection connect = (HttpURLConnection) url.openConnection();
+                connect.setRequestMethod("GET");
+                connect.setRequestProperty("Content-length", "0");
+                connect.setUseCaches(false);
+                connect.setAllowUserInteraction(false);
+                connect.setConnectTimeout(3000);
+                connect.setReadTimeout(3000);
+                connect.connect();
+
+                // Get the server response
+                int status = connect.getResponseCode();
+
+                switch (status) {
+                    case 200:
+                    case 201:
+                        // Read Server Response
+                        reader = new BufferedReader(new InputStreamReader(
+                                connect.getInputStream()));
+                        StringBuilder sb = new StringBuilder();
+                        String line;
+                        while ((line = reader.readLine()) != null) {
+                            sb.append(line + "\n");
+                        }
+                        text = sb.toString();
+                        reader.close();
+                }
+            } catch (MalformedURLException ex) {
+
+            } catch (IOException ex) {
+
+            }
+
+            return text;
+        }
+    }
+
+
+    public class LoadListPlayers extends AsyncTask<Object, Object, Object> {
+
+        private String mId, mRequest, TAG = "TAG";
+        private Context mContext;
+        private Movie mMovie = new Movie();
+        private List<ItemMovie> mMovies = new ArrayList<>();
+
+        public LoadListPlayers(Context mContext, String mId) {
+            this.mContext = mContext;
+            this.mId = mId +"/videos?";
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            mStartActivity.mProgressBar.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        protected String doInBackground(Object[] params) {
+            try {
+                mRequest = doRequest();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Object o) {
+            super.onPostExecute(o);
+            mStartActivity.mProgressBar.setVisibility(View.GONE);
+            Log.i(TAG, "START" + mRequest);
+            List<String> mPlayers = new ArrayList<>();
+            if (!mRequest.isEmpty()) {
+                try {
+                    mPlayers = setParamsToUi(mRequest);
+                } catch (JSONException mE) {
+                    mE.printStackTrace();
+                    System.out.println("Error reading JSON " + mE.getMessage());
+                }
+                Log.i(TAG, "FINISH" + mRequest);
+            }
+            initAdapterByListPlaers(mPlayers);
+        }
+
+        /**
+         * parse JSON in movie
+         *
+         * @param mRequest
+         * @throws JSONException
+         */
+        private List<String> setParamsToUi(String mRequest) throws JSONException {
+
+            List<String> mStrings = new ArrayList<>();
+            JSONObject jObj = new JSONObject(mRequest);
+            JSONArray jArray = jObj.getJSONArray("results");
+
+            for (int i = 0; i < jArray.length(); i++) {
+                JSONObject mObject = jArray.getJSONObject(i);
+                mStrings.add(mObject.getString("id"));
+            }
+            mItemMovie.setPlayers(mStrings);
+            return mStrings;
         }
 
         /**

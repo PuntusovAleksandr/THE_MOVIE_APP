@@ -61,7 +61,7 @@ public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.Item
         Picasso.with(mContext)
                 .load(mPathIcon)
                 .fit()
-                .placeholder(R.drawable.doownload)
+                .placeholder(R.drawable.progress_animation)
                 .into(holder.mImageView);
 
         holder.mCardView.setOnClickListener(new View.OnClickListener() {

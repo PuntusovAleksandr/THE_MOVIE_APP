@@ -189,6 +189,7 @@ public class MovieListFragment extends Fragment
         StaticClass.setFilter(text);     // set param filter movies
 
         currentPage = 1;
+        mListMovies.clear();
 
         getListIconUri();
 

@@ -2,6 +2,7 @@ package com.example.aleksandrp.themovieapp;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.res.Configuration;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -38,6 +39,17 @@ public class StartActivity extends AppCompatActivity implements
 
         StaticClass.setFilter(getString(R.string.popular));     // set param filter moives
         startListFragment();
+
+//        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+//
+//            mFragmentManager = getFragmentManager();
+//            StaticClass.setFilter(getString(R.string.popular));     // set param filter moives
+//            startListFragment();
+//
+//        } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+//
+//        }
+
     }
 
     /**

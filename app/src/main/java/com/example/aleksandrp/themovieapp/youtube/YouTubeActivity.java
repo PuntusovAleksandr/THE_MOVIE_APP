@@ -1,5 +1,6 @@
 package com.example.aleksandrp.themovieapp.youtube;
 
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
@@ -103,4 +104,13 @@ public class YouTubeActivity extends YouTubeBaseActivity implements
         player.loadVideo(VIDEO);
     }
 
+    @Override
+    public void onSaveInstanceState(Bundle outState, PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+    }
 }

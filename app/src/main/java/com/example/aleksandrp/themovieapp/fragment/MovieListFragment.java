@@ -70,8 +70,8 @@ public class MovieListFragment extends Fragment
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        super.onCreate(savedInstanceState);
     }
 
     @Override
@@ -156,6 +156,7 @@ public class MovieListFragment extends Fragment
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
+        menu.setGroupVisible(R.id.group_menu, true);
     }
 
     @Override

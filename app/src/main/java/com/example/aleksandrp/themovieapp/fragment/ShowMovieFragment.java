@@ -133,7 +133,7 @@ public class ShowMovieFragment extends Fragment implements StaticParams {
         Picasso.with(mContext)
                 .load(mPathIcon)
                 .fit()
-                .placeholder(R.drawable.doownload)
+                .placeholder(R.drawable.progress_animation)
                 .into(mIconMovie);
 
         mTitle.setText(mItemMovie.getOriginal_title());

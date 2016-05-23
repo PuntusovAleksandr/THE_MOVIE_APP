@@ -221,8 +221,13 @@ public class MovieListFragment extends Fragment
 
     @Override
     public void onRefresh() {
-        mListMovies.clear();
-        currentPage = 1;
+        if (!StaticClass.getFilter().equals(mContext.getString(R.string.favorite_filter))) {
+            mListMovies.clear();
+            currentPage = 1;
+        }else {
+            mSwipeRefreshLayout.setRefreshing(false);
+            mListMovies.clear();
+        }
         getListIconUri();
     }
 

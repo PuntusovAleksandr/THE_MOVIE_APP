@@ -132,6 +132,7 @@ public class ShowMovieFragment extends Fragment implements StaticParams {
                 mItemMovie.getBackdrop_path();
         Picasso.with(mContext)
                 .load(mPathIcon)
+                .fit()
                 .placeholder(R.drawable.doownload)
                 .into(mIconMovie);
 

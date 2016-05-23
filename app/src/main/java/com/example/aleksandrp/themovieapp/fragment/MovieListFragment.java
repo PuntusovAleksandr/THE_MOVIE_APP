@@ -4,6 +4,7 @@ package com.example.aleksandrp.themovieapp.fragment;
 import android.annotation.TargetApi;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -83,7 +84,11 @@ public class MovieListFragment extends Fragment
         mContext = getActivity();
 
         mRecyclerView = (RecyclerView) mView.findViewById(R.id.recycler_view_params);
-        linearLayoutManager = new GridLayoutManager(mContext, 2);
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
+            linearLayoutManager = new GridLayoutManager(mContext, 2);
+        } else if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            linearLayoutManager = new GridLayoutManager(mContext, 3);
+        }
         mRecyclerView.setLayoutManager(linearLayoutManager);
         mRecyclerView.setHasFixedSize(true);
         mListMovies = new ArrayList<>();

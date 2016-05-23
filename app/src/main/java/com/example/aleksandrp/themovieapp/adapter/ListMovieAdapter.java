@@ -60,6 +60,7 @@ public class ListMovieAdapter extends RecyclerView.Adapter<ListMovieAdapter.Item
                 mMovie.getBackdrop_path();
         Picasso.with(mContext)
                 .load(mPathIcon)
+                .fit()
                 .placeholder(R.drawable.doownload)
                 .into(holder.mImageView);
 

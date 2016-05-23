@@ -193,7 +193,7 @@ public class MovieListFragment extends Fragment
     @Override
     public void onResume() {
         super.onResume();
-        if (StaticClass.getFilter().equals(mContext.getString(R.string.favorite_filter)) && mMovie ==null) {
+        if (StaticClass.getFilter().equals(mContext.getString(R.string.favorite_filter)) && mMovie == null) {
             mMovie = new Movie();
             mMovie.setPage("1");
         }

@@ -207,17 +207,15 @@ public class MovieListFragment extends Fragment
     public void setMovie(Movie mMovie) {
         this.mMovie = mMovie;
         if (mListMovies != null) {
-            mListMovies.clear();
-            mListMovies = null;
+            mListMovies.addAll(mMovie.getItemMovies());
         }
-        mListMovies = mMovie.getItemMovies();
         if (mMovieAdapter != null) {
-//            mMovieAdapter.notifyDataSetChanged();
-            mMovieAdapter = null;
+            mMovieAdapter.notifyDataSetChanged();
         }
-//        else
-        mMovieAdapter = new ListMovieAdapter(mListMovies, mContext);
-        mRecyclerView.setAdapter(mMovieAdapter);
+        else {
+            mMovieAdapter = new ListMovieAdapter(mListMovies, mContext);
+            mRecyclerView.setAdapter(mMovieAdapter);
+        }
     }
 
     @Override
